@@ -1,1 +1,1 @@
-k_configfile ="configFileName"
+k_configfile = "configFileName"

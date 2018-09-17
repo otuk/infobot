@@ -1,0 +1,19 @@
+# configuration file for infobot
+# each bot should have its own configuration file
+
+topic:
+        name: rust
+        storageclass: FileAdmin
+
+# the storage configuration name needs
+# to match the storageclass + "Details"
+# in this example topic.storageclass + "Details" => "FileAdminDetails"
+FileAdminDetails:
+        directory: ~/Nextcloud/Documents/rusty_robot/
+        indexfile: ~/Nextcloud/Documents/rusty_robot/last.txt
+
+randomizer:
+        start: 1000
+        ontimes: 3
+        outoftimes: 24
+        exclude: 1002, 89, 1005

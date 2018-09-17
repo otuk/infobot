@@ -26,12 +26,14 @@ def test_content(response):
     # assert 'GitHub' in BeautifulSoup(response.content).title.string
 
 
-def test_command_line_interface():
-    """Test the CLI."""
-    runner = CliRunner()
-    result = runner.invoke(cli.main)
-    assert result.exit_code == 0
-    assert 'infobot.cli.main' in result.output
-    help_result = runner.invoke(cli.main, ['--help'])
-    assert help_result.exit_code == 0
-    assert '--help  Show this message and exit.' in help_result.output
+from infobot.config import Admin as ConfigAdmin
+
+
+def test_config():
+    data = ConfigAdmin.read_yaml("./config.yaml")
+    config = ConfigAdmin(data)
+    assert(config.topic.name == "rust")
+    assert(config.topic.storageclass == "FileAdmin")
+    assert(config.topic.opt == "")  # optional field
+    assert(config.randomizer.ontimes == 3)
+    assert(config.randomizer.outoftimes == 24)

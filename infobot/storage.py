@@ -1,11 +1,11 @@
+# import infobot.konstants
 
-import konstants
 
 class Admin():
 
-    def __init__(self, configMgr):
+    def __init__(self, config):
         "abstract"
-        self.configMgr = configMgr
+        self.config = config
         pass
 
     def store(self, data):
@@ -14,17 +14,23 @@ class Admin():
     def read(self, data):
         raise NotImplementedError()
 
-    
-class FileAdmin(Admin):
 
-    def __init__(self, configMgr):
+class FileAdminConf():
+    def __init__(self, filedata):
         "docstring"
-        super().__init__(configMgr)
-        
+        self.directory = filedata["directory"]
+        self.indexfile = filedata["indexfile"]
 
-    def read(self, data):
-        filename = self.cofigMgr.get(konstants.k_configfile)
-        with open(filename) as conf:
-            
 
-        
+class FileAdmin(Admin):
+    def __init__(self, config, fileadmindetails):
+        "docstring"
+        super().__init__(config)
+        self._details = FileAdminConf(fileadmindetails)
+        self._directory = self._details.directory
+        self._indexfile = self._details.indexfile
+
+    def read(self):
+        print("file admin ", self._directory)
+        # with open(filename) as conf:
+        #    pass

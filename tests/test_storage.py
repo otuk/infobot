@@ -5,10 +5,6 @@
 
 import pytest
 
-from click.testing import CliRunner
-
-from infobot import cli
-
 
 @pytest.fixture
 def response():
@@ -26,12 +22,13 @@ def test_content(response):
     # assert 'GitHub' in BeautifulSoup(response.content).title.string
 
 
-def test_command_line_interface():
-    """Test the CLI."""
-    runner = CliRunner()
-    result = runner.invoke(cli.main)
-    assert result.exit_code == 0
-    assert 'infobot.cli.main' in result.output
-    help_result = runner.invoke(cli.main, ['--help'])
-    assert help_result.exit_code == 0
-    assert '--help  Show this message and exit.' in help_result.output
+from infobot.config import Admin as ConfigAdmin    
+from infobot.storage import FileAdmin as FileAdmin
+
+
+def test_config():
+    data = ConfigAdmin.read_yaml("./config.yaml")
+    config = ConfigAdmin(data)
+    fa = FileAdmin(config, config.storageadmindetails)
+    assert(fa._directory == "~/Nextcloud/Documents/rusty_robot/")
+    assert(fa._indexfile == "~/Nextcloud/Documents/rusty_robot/last.txt")
