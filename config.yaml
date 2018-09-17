@@ -4,16 +4,38 @@
 topic:
         name: rust
         storageclass: FileAdmin
+        socialclass: FakeSocialPlugin
+
+randomizer:
+        start: 1000
+        ontimes: 24
+        outoftimes: 24
+        exclude: 1002, 89, 1005
 
 # the storage configuration name needs
 # to match the storageclass + "Details"
 # in this example topic.storageclass + "Details" => "FileAdminDetails"
 FileAdminDetails:
-        directory: ~/Nextcloud/Documents/rusty_robot/
-        indexfile: ~/Nextcloud/Documents/rusty_robot/last.txt
+        directory: /home/totem/Nextcloud/Documents/rusty_robot/
+        indexfile: /home/totem/Nextcloud/Documents/rusty_robot/index.yaml
 
-randomizer:
-        start: 1000
-        ontimes: 3
-        outoftimes: 24
-        exclude: 1002, 89, 1005
+SQLiteAdminDetails:
+        dbfile: /jome/john/bot/posts.db
+
+# the social site configuration name needs
+# to match the socialclass + "Details"
+# in this example topic.socialclass + "Details" => "FakeSocialDetails"
+FakeSocialPluginDetails:
+        userid: johnsilver
+        password: poconos
+
+MastodonPluginDetails:
+        userid: johnsilver
+        password: poconos
+        instance: mastodon.social
+
+TwitterPluginDetails:
+        userid: johnsilver
+        password: poconos
+        loginapi: https://twitter.com/api/login 
+        

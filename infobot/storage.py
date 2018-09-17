@@ -1,8 +1,10 @@
+import os
+
 # import infobot.konstants
+from infobot.config import Admin as ConfigAdm
 
 
 class Admin():
-
     def __init__(self, config):
         "abstract"
         self.config = config
@@ -12,6 +14,9 @@ class Admin():
         raise NotImplementedError()
 
     def read(self, data):
+        raise NotImplementedError()
+
+    def get_index(self):
         raise NotImplementedError()
 
 
@@ -30,7 +35,16 @@ class FileAdmin(Admin):
         self._directory = self._details.directory
         self._indexfile = self._details.indexfile
 
-    def read(self):
+    def read(self, filename):
+        fullpath = os.path.join(self._directory, filename + ".txt")
         print("file admin ", self._directory)
-        # with open(filename) as conf:
-        #    pass
+        with open(fullpath) as postfile:
+            postdata = postfile.read()
+        print(postdata)
+        return postdata
+
+    def get_index(self):
+        indexData = ConfigAdm.read_yaml(self._indexfile)
+        return (int(indexData["start"]),
+                int(indexData["last"]),
+                int(indexData["previous"]))

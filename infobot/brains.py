@@ -4,30 +4,7 @@ import importlib
 
 # import infobot.konstants
 from infobot.config import Admin
-
-
-def process_args():
-    example_usage_text = '''Example:
-
-    ./bot.py  -c ./config.yaml
-
-    '''
-    parser = argparse.ArgumentParser(
-        description="Wakes up infobot to post",
-        epilog=example_usage_text,
-        formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("-c", "--confpath",
-                        help="path for yaml configuration file",
-                        type=str, default="./config.yaml")
-    parser.add_argument("-a", "--addfrompath",
-                        help="move entries from a directory to bot storage",
-                        type=str, required=False)
-    args = parser.parse_args()
-    return args
-
-
-def get_config_file_name(args):
-    return args.confpath
+from infobot.index import RandomHelper
 
 
 class Brains():
@@ -35,16 +12,51 @@ class Brains():
     Brains does the main coordination for infobot.
     It works with social plugin and the storage admin
     to make the posts or add more data for future posts
-    from a directory.
+    from a user supplied directory.
     """
 
+    @staticmethod
+    def process_args():
+        """
+        handles command line options and flags
+        """
+        example_usage_text = '''Example:
+
+        ./bot.py  -c ./config.yaml
+
+        '''
+        parser = argparse.ArgumentParser(
+            description="Wakes up infobot to post",
+            epilog=example_usage_text,
+            formatter_class=argparse.RawDescriptionHelpFormatter)
+        parser.add_argument("-c", "--confpath",
+                            help="path for yaml configuration file",
+                            type=str, default="./config.yaml")
+        parser.add_argument("-a", "--addfrompath",
+                            help="move entries from a directory" +
+                            " to bot storage",
+                            type=str, required=False)
+        args = parser.parse_args()
+        return args
+
+    @staticmethod
+    def get_config_file_name(args):
+        return args.confpath
+
     def __init__(self):
-        args = process_args()
-        configFileName = get_config_file_name(args)
+        """
+        create a coordinator for infobot
+        and start him on its tasks based on
+        user supplied command line arguments
+        """
+        args = Brains.process_args()
+        configFileName = Brains.get_config_file_name(args)
         configData = Admin.read_yaml(configFileName)
         self.config = Admin(configData)
-        self.storageAdmin = self.resolveStorageAdmin()(
+        StorageAdmin = self.resolveStorageAdmin()
+        self.storageAdmin = StorageAdmin(
             self.config, self.config.storageadmindetails)
+        self.randomHelper = RandomHelper(self.config, self.storageAdmin)
         self.awake(args)
 
     def resolveStorageAdmin(self):
@@ -58,16 +70,14 @@ class Brains():
         if args.addfrompath is not None:
             self.add_future_posts()
         else:
-            self.post_to_social()
+            if self.randomHelper.should_i_run():
+                self.post_to_social()
 
     def post_to_social(self):
-        self.storageAdmin.read()
-    # parse the config file
-    # initialize storage admin
-    # initialize brains?
-    # checkrandomizer
-    # get random text #
-    # ask for text
+        num = self.randomHelper.get_random_number()
+        filename = self.config.topic.name + "_" + str(num)
+        filedata = self.storageAdmin.read(filename)
+
     # ask social to login
     # ask social to do prepost procedures
     # pass it to social to post

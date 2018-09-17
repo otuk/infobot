@@ -35,5 +35,5 @@ def test_config():
     assert(config.topic.name == "rust")
     assert(config.topic.storageclass == "FileAdmin")
     assert(config.topic.opt == "")  # optional field
-    assert(config.randomizer.ontimes == 3)
+    assert(config.randomizer.ontimes == 24)
     assert(config.randomizer.outoftimes == 24)
