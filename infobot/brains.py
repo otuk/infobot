@@ -1,6 +1,6 @@
 import argparse
 import importlib
-from pathlib import Path
+import os
 
 # import infobot.konstants
 from infobot.config import Admin as ConfigAdmin
@@ -120,5 +120,5 @@ class Brains():
     def expand_home(origPath):
         if "~" in origPath:
             origPath = origPath.replace("~",
-                                        str(Path.home()))
+                                        str(os.path.expanduser('~')))
         return origPath
