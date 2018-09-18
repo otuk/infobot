@@ -53,18 +53,28 @@ class Brains():
         configFileName = Brains.get_config_file_name(args)
         configData = Admin.read_yaml(configFileName)
         self.config = Admin(configData)
-        StorageAdmin = self.resolveStorageAdmin()
+        StorageAdmin = self.resolve_storage_admin()
         self.storageAdmin = StorageAdmin(
             self.config, self.config.storageadmindetails)
         self.randomHelper = RandomHelper(self.config, self.storageAdmin)
+        SocialPlugin = self.resolve_social_plugin()
+        self.socialPlugin = SocialPlugin(
+            self.config, self.config.socialplugindetails, self.storageAdmin)
         self.awake(args)
 
-    def resolveStorageAdmin(self):
+    def resolve_storage_admin(self):
         storageModuleObj = importlib.import_module(
             "infobot.storage", package="infobot")
         storageClassObj = getattr(
             storageModuleObj, self.config.topic.storageclass)
         return storageClassObj
+
+    def resolve_social_plugin(self):
+        socialModuleObj = importlib.import_module(
+            "infobot.social.fake", package="infobot")
+        socialPluginClassObj = getattr(
+            socialModuleObj, self.config.topic.socialclass)
+        return socialPluginClassObj
 
     def awake(self, args):
         if args.addfrompath is not None:
@@ -77,13 +87,14 @@ class Brains():
         num = self.randomHelper.get_random_number()
         filename = self.config.topic.name + "_" + str(num)
         filedata = self.storageAdmin.read(filename)
-
+        self.socialPlugin.login()
+        self.socialPlugin.post(num, filedata)
+        self.socialPlugin.logout()
     # ask social to login
     # ask social to do prepost procedures
     # pass it to social to post
     # ask social to logout
     # shutdown again
-        print(" oh yes posting")
 
     def add_future_posts(self):
         pass

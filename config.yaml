@@ -16,8 +16,8 @@ randomizer:
 # to match the storageclass + "Details"
 # in this example topic.storageclass + "Details" => "FileAdminDetails"
 FileAdminDetails:
-        directory: /home/totem/Nextcloud/Documents/rusty_robot/
-        indexfile: /home/totem/Nextcloud/Documents/rusty_robot/index.yaml
+        directory: /home/otuk/Nextcloud/Documents/rusty_robot/
+        indexfile: /home/otuk/Nextcloud/Documents/rusty_robot/index.yaml
 
 SQLiteAdminDetails:
         dbfile: /jome/john/bot/posts.db

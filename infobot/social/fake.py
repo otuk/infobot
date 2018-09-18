@@ -34,24 +34,26 @@ class FakeSocialPluginConf():
 
 
 class FakeSocialPlugin(SocialPlugin):
-    def __init__(self, config, socialplugindetails):
+    def __init__(self, config, socialplugindetails, storageadmin):
         "docstring"
         super().__init__(config)
         self._details = FakeSocialPluginConf(socialplugindetails)
-        self._userid = self._details.directory
-        self._password = self._details.indexfile
+        self._userid = self._details.userid
+        self._password = self._details.password
+        self.storageAdmin = storageadmin
 
     def login(self):
-        raise NotImplementedError()
+        return True
 
     def logout(self):
-        raise NotImplementedError()
+        return True
 
-    def post(self, data):
-        raise NotImplementedError()
+    def post(self, num, data):
+        print(data)
+        print("corrections send to ", num)
 
     def list_followers(self):
-        raise NotImplementedError()
+        return["a", "b", "c"]
 
     def follow(self, other):
-        raise NotImplementedError()
+        print("following @"+other)

@@ -30,5 +30,5 @@ def test_config():
     data = ConfigAdmin.read_yaml("./config.yaml")
     config = ConfigAdmin(data)
     fa = FileAdmin(config, config.storageadmindetails)
-    assert(fa._directory == "/home/totem/Nextcloud/Documents/rusty_robot/")
-    assert(fa._indexfile == "/home/totem/Nextcloud/Documents/rusty_robot/index.yaml")
+    assert(fa._directory == "/home/otuk/Nextcloud/Documents/rusty_robot/")
+    assert(fa._indexfile == "/home/otuk/Nextcloud/Documents/rusty_robot/index.yaml")
