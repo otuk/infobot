@@ -1,13 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""Tests for `infobot` package."""
+"""
+Tests for `infobot` package.
+Module tested:  config
+"""
 
 import pytest
 
-from click.testing import CliRunner
+from infobot.config import Admin as ConfigAdmin
 
-from infobot import cli
+# from click.testing import CliRunner
+# from infobot import cli
 
 
 @pytest.fixture
@@ -26,14 +30,10 @@ def test_content(response):
     # assert 'GitHub' in BeautifulSoup(response.content).title.string
 
 
-from infobot.config import Admin as ConfigAdmin
-
-
 def test_config():
-    data = ConfigAdmin.read_yaml("./config.yaml")
-    config = ConfigAdmin(data)
+    config = ConfigAdmin("./config.yaml")
     assert(config.topic.name == "rust")
     assert(config.topic.storageclass == "FileAdmin")
-    assert(config.topic.opt == "")  # optional field
     assert(config.randomizer.ontimes == 24)
     assert(config.randomizer.outoftimes == 24)
+    # assert(config.topic.opt == "")  # optional field

@@ -1,30 +1,18 @@
 import os
 
 # import infobot.konstants
+from infobot.storage.template import Admin
 from infobot.config import Admin as ConfigAdm
-
-
-class Admin():
-    def __init__(self, config):
-        "abstract"
-        self.config = config
-        pass
-
-    def store(self, data):
-        raise NotImplementedError()
-
-    def read(self, data):
-        raise NotImplementedError()
-
-    def get_index(self):
-        raise NotImplementedError()
+from infobot.brains import Brains
 
 
 class FileAdminConf():
     def __init__(self, filedata):
         "docstring"
-        self.directory = filedata["directory"]
-        self.indexfile = filedata["indexfile"]
+        self.directory = Brains.expand_home(
+            filedata["directory"])
+        self.indexfile = Brains.expand_home(
+            filedata["indexfile"])
 
 
 class FileAdmin(Admin):
@@ -35,12 +23,13 @@ class FileAdmin(Admin):
         self._directory = self._details.directory
         self._indexfile = self._details.indexfile
 
-    def read(self, filename):
-        fullpath = os.path.join(self._directory, filename + ".txt")
-        print("file admin ", self._directory)
+    def format_index(self, topicName, num):
+        return topicName + "_" + str(num) + ".txt"
+
+    def read_from(self, index):
+        fullpath = os.path.join(self._directory, index)
         with open(fullpath) as postfile:
             postdata = postfile.read()
-        print(postdata)
         return postdata
 
     def get_index(self):
@@ -48,3 +37,16 @@ class FileAdmin(Admin):
         return (int(indexData["start"]),
                 int(indexData["last"]),
                 int(indexData["previous"]))
+
+    def get_header(self, socialnetwork, topic, num):
+        return """
+{}:{}
+-----------------------
+
+    """.format(topic, num)
+
+    def get_footer(self, socialnetwork, topic, num):
+        return """
+-----------------------
+for correction requests please include: {}:{}
+    """.format(topic, num)

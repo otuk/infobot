@@ -1,9 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""Tests for `infobot` package."""
+"""
+Tests for `infobot` package.
+Module tested:  storage
+"""
 
 import pytest
+
+from infobot.config import Admin as ConfigAdmin
+from infobot.storage.file import FileAdmin as FileAdmin
+from infobot.brains import Brains
 
 
 @pytest.fixture
@@ -22,13 +29,10 @@ def test_content(response):
     # assert 'GitHub' in BeautifulSoup(response.content).title.string
 
 
-from infobot.config import Admin as ConfigAdmin
-from infobot.storage import FileAdmin as FileAdmin
-
-
-def test_config():
-    data = ConfigAdmin.read_yaml("./config.yaml")
-    config = ConfigAdmin(data)
+def test_storage():
+    config = ConfigAdmin("./config.yaml")
     fa = FileAdmin(config, config.storageadmindetails)
-    assert(fa._directory == "/home/otuk/Nextcloud/Documents/rusty_robot/")
-    assert(fa._indexfile == "/home/otuk/Nextcloud/Documents/rusty_robot/index.yaml")
+    assert(fa._directory == Brains.expand_home(
+        "~/Nextcloud/Documents/rusty_robot/"))
+    assert(fa._indexfile == Brains.expand_home(
+           "~/Nextcloud/Documents/rusty_robot/index.yaml"))

@@ -1,7 +1,4 @@
-import os
-
 # import infobot.konstants
-from infobot.config import Admin as ConfigAdm
 
 
 class SocialPlugin():
@@ -28,14 +25,18 @@ class SocialPlugin():
 
 class FakeSocialPluginConf():
     def __init__(self, filedata):
-        "docstring"
+        "Handles the configuation data for social plugin"
         self.userid = filedata["userid"]
         self.password = filedata["password"]
 
 
 class FakeSocialPlugin(SocialPlugin):
     def __init__(self, config, socialplugindetails, storageadmin):
-        "docstring"
+        """
+        This is a reference class for a social plugin
+        It does not post to any social network
+        It simply outputs to the stdout as if it is posting
+        """
         super().__init__(config)
         self._details = FakeSocialPluginConf(socialplugindetails)
         self._userid = self._details.userid
@@ -43,14 +44,20 @@ class FakeSocialPlugin(SocialPlugin):
         self.storageAdmin = storageadmin
 
     def login(self):
+        print("Logging into fake with {}/{}".
+              format(self._userid, self._password))
         return True
 
     def logout(self):
+        print("Logging out from fake.")
         return True
 
-    def post(self, num, data):
-        print(data)
-        print("corrections send to ", num)
+    def post(self, topic, num, data):
+        hdr = self.storageAdmin.get_header("fake", topic, num)
+        ftr = self.storageAdmin.get_footer("fake", topic, num)
+        postdata = "{}\n{}\n{}".format(hdr, data, ftr)
+        print(postdata)
+        return postdata
 
     def list_followers(self):
         return["a", "b", "c"]

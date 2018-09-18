@@ -5,9 +5,12 @@ class Topic():
     def __init__(self, filedata):
         "docstring"
         self.name = filedata["name"]
+        self.storagemodule = filedata["storagemodule"]
         self.storageclass = filedata["storageclass"]
+        self.socialmodule = filedata["socialmodule"]
         self.socialclass = filedata["socialclass"]
-        self.opt = filedata.get("opt", "")  # how to handle an optional field
+        # sample optional argument
+        # self.opt = filedata.get("opt", "")
 
 
 class Randomizer():
@@ -21,8 +24,9 @@ class Randomizer():
 
 
 class Admin():
-    def __init__(self, filedata):
+    def __init__(self, filepath):
         "docstring"
+        filedata = Admin.read_yaml(filepath)
         self.topic = Topic(filedata["topic"])
         self.randomizer = Randomizer(filedata["randomizer"])
         self.storageadmindetails = filedata[self.topic.storageclass
