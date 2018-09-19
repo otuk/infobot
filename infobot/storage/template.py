@@ -5,13 +5,19 @@ class Admin():
         self.config = config
         pass
 
+    def store_all(self, fromdir, topic):
+        raise NotImplementedError()
+
     def store(self, data, toIndex):
         raise NotImplementedError()
 
     def read_from(self, index):
         raise NotImplementedError()
 
-    def get_indices(self):
+    def get_counters(self):
+        raise NotImplementedError()
+
+    def increment_last(self):
         raise NotImplementedError()
 
     def format_index(self, topicname, num):

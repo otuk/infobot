@@ -1,12 +1,13 @@
-# configuration file for infobot
-# each bot should have its own configuration file
+#
+# This is the configuration file for infobot
+# Each bot should have its own configuration file
+#  
 
+
+# in the topic section
+# 
 topic:
         name: rust
-        storagemodule: file
-        storageclass: FileAdmin
-        socialmodule: fake        
-        socialclass: FakeSocialPlugin
 
 randomizer:
         start: 1000
@@ -18,11 +19,8 @@ randomizer:
 # to match the storageclass + "Details"
 # in this example topic.storageclass + "Details" => "FileAdminDetails"
 FileAdminDetails:
-        directory: ~/Nextcloud/Documents/rusty_robot/
-        indexfile: ~/Nextcloud/Documents/rusty_robot/index.yaml
-
-SQLiteAdminDetails:
-        dbfile: /jome/john/bot/posts.db
+        directory: ~/Nextcloud/Documents/rusty_robot/data/
+        counterfile: ~/Nextcloud/Documents/rusty_robot/data/counter.yaml
 
 # the social site configuration name needs
 # to match the socialclass + "Details"
@@ -36,8 +34,31 @@ MastodonPluginDetails:
         password: poconos
         instance: mastodon.social
 
+
+#
+# the following is dev section important only if you want to change the code
+# or if you want to extend the infobot code
+#
+# Otherwise do not change them.
+#
+dev:
+        storagemodule: file  
+        storageclass: FileAdmin  
+        socialmodule: fake        
+        socialclass: FakeSocialPlugin
+
+
+#########################################################################
+#########################################################################
+# Folloing are not implemented or used
+# they are here to show how you would extend this
+# to make posts to other networks or
+# how to implement other storage options
 TwitterPluginDetails:
         userid: johnsilver
         password: poconos
         loginapi: https://twitter.com/api/login 
         
+SQLiteAdminDetails:
+        dbfile: /jome/john/bot/posts.db
+

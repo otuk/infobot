@@ -33,6 +33,6 @@ def test_storage():
     config = ConfigAdmin("./config.yaml")
     fa = FileAdmin(config, config.storageadmindetails)
     assert(fa._directory == Brains.expand_home(
-        "~/Nextcloud/Documents/rusty_robot/"))
-    assert(fa._indexfile == Brains.expand_home(
-           "~/Nextcloud/Documents/rusty_robot/index.yaml"))
+        "~/Nextcloud/Documents/rusty_robot/data/"))
+    assert(fa._counterfile == Brains.expand_home(
+           "~/Nextcloud/Documents/rusty_robot/data/counter.yaml"))

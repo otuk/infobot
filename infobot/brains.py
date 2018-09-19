@@ -2,7 +2,7 @@ import argparse
 import importlib
 import os
 
-# import infobot.konstants
+import infobot.konstants as K
 from infobot.config import Admin as ConfigAdmin
 from infobot.index import RandomHelper
 
@@ -31,9 +31,9 @@ class Brains():
         SocialPlugin = self.resolve_social_plugin()
         self.socialPlugin = SocialPlugin(
             self.config, self.config.socialplugindetails, self.storageAdmin)
-        self.awake(args)
+        self.wakeup(args)
 
-    def awake(self, args):
+    def wakeup(self, args):
         """
         There are two modes of operations
         Main mode is to wake up and make a post to a social network
@@ -59,27 +59,22 @@ class Brains():
                                num, filedata)
         self.socialPlugin.logout()
 
-    # ask social to do prepost procedures
-    # pass it to social to post
-    # ask social to logout
-    # shutdown again
-
     def add_future_posts(self, frompath):
-        pass
-        print("yes sure adding files from ", frompath)
+        self.storageAdmin.store_all(frompath,
+                                    self.config.topic.name)
 
-    def resolve_storage_admin(self):    # watchout the `.`
-        storageModuleObj = Brains._module("infobot", "storage.",
-                                          self.config.topic.storagemodule)
+    def resolve_storage_admin(self):
+        storageModuleObj = Brains._module(K.packageName, K.storageModule,
+                                          self.config.dev.storagemodule)
         storageClassObj = getattr(
-            storageModuleObj, self.config.topic.storageclass)
+            storageModuleObj, self.config.dev.storageclass)
         return storageClassObj
 
-    def resolve_social_plugin(self):   # watchout the `.`
-        socialModuleObj = Brains._module("infobot", "social.",
-                                         self.config.topic.socialmodule)
+    def resolve_social_plugin(self):
+        socialModuleObj = Brains._module(K.packageName, K.socialModule,
+                                         self.config.dev.socialmodule)
         socialPluginClassObj = getattr(
-            socialModuleObj, self.config.topic.socialclass)
+            socialModuleObj, self.config.dev.socialclass)
         return socialPluginClassObj
 
     @staticmethod

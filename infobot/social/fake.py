@@ -1,33 +1,12 @@
-# import infobot.konstants
-
-
-class SocialPlugin():
-    def __init__(self, config):
-        "abstract"
-        self.config = config
-        pass
-
-    def login(self):
-        raise NotImplementedError()
-
-    def logout(self):
-        raise NotImplementedError()
-
-    def post(self, data):
-        raise NotImplementedError()
-
-    def list_followers(self):
-        raise NotImplementedError()
-
-    def follow(self, other):
-        raise NotImplementedError()
+import infobot.konstants as K
+from infobot.social.template import SocialPlugin
 
 
 class FakeSocialPluginConf():
     def __init__(self, filedata):
         "Handles the configuation data for social plugin"
-        self.userid = filedata["userid"]
-        self.password = filedata["password"]
+        self.userid = filedata[K.useridKey]
+        self.password = filedata[K.passwdKey]
 
 
 class FakeSocialPlugin(SocialPlugin):
@@ -37,7 +16,7 @@ class FakeSocialPlugin(SocialPlugin):
         It does not post to any social network
         It simply outputs to the stdout as if it is posting
         """
-        super().__init__(config)
+        super().__init__(config, K.fakeKey)
         self._details = FakeSocialPluginConf(socialplugindetails)
         self._userid = self._details.userid
         self._password = self._details.password
@@ -53,8 +32,8 @@ class FakeSocialPlugin(SocialPlugin):
         return True
 
     def post(self, topic, num, data):
-        hdr = self.storageAdmin.get_header("fake", topic, num)
-        ftr = self.storageAdmin.get_footer("fake", topic, num)
+        hdr = self.storageAdmin.get_header(self.socialName, topic, num)
+        ftr = self.storageAdmin.get_footer(self.socialName, topic, num)
         postdata = "{}\n{}\n{}".format(hdr, data, ftr)
         print(postdata)
         return postdata

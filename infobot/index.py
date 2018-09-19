@@ -8,8 +8,8 @@ class RandomHelper():
         self.excludeList = config.randomizer.exclude
         random.seed()
 
-    def get_index(self):
-        return self.storageAdmin.get_index()
+    def get_counters(self):
+        return self.storageAdmin.get_counters()
 
     def get_random_number(self):
         """
@@ -19,7 +19,7 @@ class RandomHelper():
         It excludes the post indexes that are in
         the exclude list in the configuration file.
         """
-        start, last, previous = self.get_index()
+        start, last, previous = self.get_counters()
         ret = random.randint(start, last)
         while ret in self.excludeList:
             ret = random.randint(start, last)

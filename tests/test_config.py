@@ -33,7 +33,7 @@ def test_content(response):
 def test_config():
     config = ConfigAdmin("./config.yaml")
     assert(config.topic.name == "rust")
-    assert(config.topic.storageclass == "FileAdmin")
+    assert(config.dev.storageclass == "FileAdmin")
     assert(config.randomizer.ontimes == 24)
     assert(config.randomizer.outoftimes == 24)
     # assert(config.topic.opt == "")  # optional field
