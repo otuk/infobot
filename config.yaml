@@ -26,13 +26,17 @@ FileAdminDetails:
 # to match the socialclass + "Details"
 # in this example topic.socialclass + "Details" => "FakeSocialDetails"
 FakeSocialPluginDetails:
+        socialapp:  fake
+        clientappname: fakeapp        
         userid: johnsilver
         password: poconos
 
 MastodonPluginDetails:
-        userid: johnsilver
-        password: poconos
-        instance: mastodon.social
+        socialapp:  mastodon
+        clientappname: infobotapp
+        apiurl: https://mastodon.social
+        clientsecretfilename: ~/Nextcloud/Documents/rusty_robot/data/infobotapp_client.secret
+        usersecretfilename: ~/Nextcloud/Documents/rusty_robot/data/infobotapp_user.secret           
 
 
 #
