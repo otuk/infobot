@@ -13,7 +13,7 @@ randomizer:
         start: 1000
         ontimes: 24
         outoftimes: 24
-        exclude: 1002, 89, 1005
+        exclude: 999, 998
 
 # the storage configuration name needs
 # to match the storageclass + "Details"
@@ -48,8 +48,10 @@ MastodonPluginDetails:
 dev:
         storagemodule: file  
         storageclass: FileAdmin  
-        socialmodule: fake        
-        socialclass: FakeSocialPlugin
+        socialmodule: mastodon
+        socialclass: MastodonPlugin
+        # socialmodule: fake        
+        # socialclass: FakeSocialPlugin
 
 
 #########################################################################

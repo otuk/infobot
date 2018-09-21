@@ -1,6 +1,8 @@
+import os
 from mastodon import Mastodon
 
 import infobot.konstants as K
+from infobot.brains import Brains
 from infobot.social.template import SocialPlugin
 
 
@@ -31,8 +33,10 @@ class MastodonPlugin(SocialPlugin):
         self._details = details
         self._clientappname = self._details.clientAppName
         self._apiURL = self._details.apiURL
-        self._clientSecretFilename = self._details.clientSecretFilename
-        self._userSecretFilename = self._details.userSecretFilename
+        self._clientSecretFilename = Brains.expand_home(
+            self._details.clientSecretFilename)
+        self._userSecretFilename = Brains.expand_home(
+            self._details.userSecretFilename)
         self.storageAdmin = storageadmin
 
     def register(self):
@@ -43,36 +47,62 @@ class MastodonPlugin(SocialPlugin):
             to_file=self._clientSecretFilename
         )
         # this also logs in making the app ready for posting
-        self.login()
+        if self.login():
+            if self.logged_in():
+                print("One time registration succesfully completed")
+                return True
+        else:
+            return False
 
     def login(self):
-        # login and save login key
-        mastodon = Mastodon(
-            client_id=self._clientSecretFilename,
-            api_base_url=self._apiURL
-        )
-        uid = str(input("Enter mastodon userid email (e.g abc@xyz.com): "))
-        pwd = input("Enter password for user {}: ".format(uid))
-        mastodon.log_in(
-            uid,
-            pwd,
-            to_file=self._userSecretFilename
-        )
-
-    def logout(self):
-        print("Logging out from mastodon.")
-        return True
-
-    def registered(self):
-        return False
-
-    def post(self, topic, num, data):
         if not self.registered():
             print(
                 ("{} requires a one time registration, "
                  "please run with '-r' flag first").format(
                     self.socialName))
             return False
+        if self.logged_in():
+            return True
+        # login and save login key
+        mastodon = Mastodon(
+            client_id=self._clientSecretFilename,
+            api_base_url=self._apiURL
+        )
+        uid = str(input("Enter mastodon userid email (e.g abc@xyz.com): "))
+        pwd = str(input("Enter password for user {}: ".format(uid)))
+        mastodon.log_in(
+            uid,
+            pwd,
+            to_file=self._userSecretFilename
+        )
+        return True
+
+    def logout(self):
+        pass
+
+    def registered(self):
+        # ensure client secret file is in place
+        # and it is not 0 length
+        if os.path.exists(self._clientSecretFilename):
+            if os.path.isfile(self._clientSecretFilename):
+                if os.path.getsize(self._clientSecretFilename) > 0:
+                    return True
+        return False
+
+    def logged_in(self):
+        # ensure user secret file is in place
+        # and it is not 0 length
+        if os.path.exists(self._userSecretFilename):
+            if os.path.isfile(self._userSecretFilename):
+                if os.path.getsize(self._userSecretFilename) > 0:
+                    return True
+        return False
+
+    def post(self, topic, num, data):
+        if not self.logged_in():
+            self.login()
+            if not self.logged_in():
+                assert(False)
         hdr = self.storageAdmin.get_header(self.socialName, topic, num)
         ftr = self.storageAdmin.get_footer(self.socialName, topic, num)
         postdata = "{}\n{}\n{}".format(hdr, data, ftr)
