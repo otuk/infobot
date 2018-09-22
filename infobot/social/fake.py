@@ -7,6 +7,7 @@ class FakeSocialPluginConf():
         "Handles the configuation data for social plugin"
         self.userid = filedata[K.useridKey]
         self.password = filedata[K.passwdKey]
+        self.socialAppName = filedata[K.socialAppKey]
 
 
 class FakeSocialPlugin(SocialPlugin):
@@ -16,11 +17,16 @@ class FakeSocialPlugin(SocialPlugin):
         It does not post to any social network
         It simply outputs to the stdout as if it is posting
         """
-        super().__init__(config, K.fakeKey)
-        self._details = FakeSocialPluginConf(socialplugindetails)
+        details = FakeSocialPluginConf(socialplugindetails)
+        super().__init__(config, details.socialAppName)
+        self._details = details
         self._userid = self._details.userid
         self._password = self._details.password
         self.storageAdmin = storageadmin
+
+    def register(self):
+        print("No need to register")
+        return True
 
     def login(self):
         print("Logging into fake with {}/{}".

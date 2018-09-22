@@ -41,6 +41,8 @@ class Brains():
         """
         if args.addfrompath is not None:
             self.add_future_posts(args.addfrompath)
+        elif args.registerapp:
+            self.register_app()
         else:
             if self.randomHelper.should_i_run():
                 self.post_to_social()
@@ -62,6 +64,9 @@ class Brains():
     def add_future_posts(self, frompath):
         self.storageAdmin.store_all(frompath,
                                     self.config.topic.name)
+
+    def register_app(self):
+        self.socialPlugin.register()
 
     def resolve_storage_admin(self):
         storageModuleObj = Brains._module(K.packageName, K.storageModule,
@@ -98,6 +103,11 @@ class Brains():
                             help="move entries from a directory" +
                             " to bot storage",
                             type=str, required=False)
+        parser.add_argument("-r", "--registerapp",
+                            help="one time app registration is required" +
+                            " for some social plugins",
+                            action="store_true",
+                            default=False, required=False)
         args = parser.parse_args()
         return args
 

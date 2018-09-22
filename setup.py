@@ -11,7 +11,7 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=6.0', 'pyyaml']
+requirements = ['Click>=6.0', 'pyyaml', 'Mastodon.py']
 
 setup_requirements = ['pytest-runner', ]
 
@@ -43,11 +43,12 @@ setup(
     include_package_data=True,
     keywords='infobot',
     name='infobot',
-    packages=find_packages(include=['infobot']),
+    packages=find_packages(
+        include=['infobot', 'infobot.storage', 'infobot.social']),
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/otuk/infobot',
-    version='0.0.4',
+    version='0.1.1',
     zip_safe=False,
 )
