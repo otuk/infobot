@@ -34,6 +34,13 @@ class MastodonPlugin(SocialPlugin):
             self._details.userSecretFilename)
         self.storageAdmin = storageadmin
 
+    def status(self):
+        print("Mastodon social plugin is active with appname {}".format(
+            self._clientappname
+        ))
+        print("  This client is registered: {}".format(self.registered()))
+        print("  This user is logged in: {}".format(self.logged_in()))
+
     def register(self):
         # Register app - only once!
         Mastodon.create_app(

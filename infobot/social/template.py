@@ -4,6 +4,9 @@ class SocialPlugin():
         self.config = config
         self.socialName = name
 
+    def status(self):
+        raise NotImplementedError()
+
     def login(self):
         raise NotImplementedError()
 

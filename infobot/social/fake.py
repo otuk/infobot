@@ -24,6 +24,10 @@ class FakeSocialPlugin(SocialPlugin):
         self._password = self._details.password
         self.storageAdmin = storageadmin
 
+    def status(self):
+        print("Fake social Plugin is active")
+        print("  This only prints to stdout, nothing else.")
+
     def register(self):
         print("No need to register")
         return True

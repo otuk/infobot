@@ -43,6 +43,7 @@ class Admin():
         The file name is given as a commandline argument to the prog.
         """
         filedata = Admin.read_yaml(filepath)
+        self.configfilepath = filepath
         self.topic = Topic(filedata["topic"])
         self.dev = Dev(filedata["dev"])
         self.randomizer = Randomizer(filedata["randomizer"])
@@ -50,6 +51,18 @@ class Admin():
                                             + "Details"]
         self.socialplugindetails = filedata[self.dev.socialclass
                                             + "Details"]
+
+    def status(self):
+        print("Infobot instance for topic: {}".format(self.topic.name))
+        print("  Configuration file: {}".format(self.configfilepath))
+        print("  Posts {} out of {} times".format(
+            self.randomizer.ontimes,
+            self.randomizer.outoftimes
+        ))
+        print("  Starting from: {} and excluding: {}".format(
+            self.randomizer.start,
+            self.randomizer.exclude
+        ))
 
     @staticmethod
     def read_yaml(yamlFilePath):

@@ -21,7 +21,7 @@ setup(
     author="Otuk",
     author_email='otuk@kodeten.com',
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
@@ -31,7 +31,9 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
-    description="Infobot is an extensible social media posting bot.  Initial version will target Mastodon and will post information on coding.",
+    description="Infobot is an extensible social media posting bot.  " +
+    "It grabs candidate posts from a directory at random times and posts " +
+    "to different social media networks.",
     entry_points={
         'console_scripts': [
             'infobot=infobot.cli:main',

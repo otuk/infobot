@@ -1,8 +1,6 @@
 TODO
 -----------------------
 
-- Add a display configuration flag ( status() for all modules)
-- update the infobot text /description for version 0.2.0
 - Implement do not show older than X days option for the posts
 - implement optional text size limit for the intake
 
@@ -13,3 +11,5 @@ TODO
 DONE
 -----------------------
 - Make file extension configurable
+- Add a display configuration flag ( status() for all modules)
+- update the infobot text /description for version 0.2.0

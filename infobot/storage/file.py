@@ -30,6 +30,20 @@ class FileAdmin(Admin):
         self._counterfile = self._details.counterfile
         self._indexFileFormat = self._details.indexFileFormat
 
+    def status(self):
+        print("File Based Storage Admin is active")
+        print("  Reading posts from: {}".format(
+            self._directory
+        ))
+        print("  Counter file at: {}".format(
+            self._counterfile
+        ))
+        start, last, previous = self.get_counters()
+        print("  There are {} posts, last post index is: {}".format(
+            str(last - start + 1),
+            str(last)
+        ))
+
     def format_index(self, topic, num):
         """
         returns formatted  filename

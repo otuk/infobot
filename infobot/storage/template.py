@@ -5,6 +5,9 @@ class Admin():
         self.config = config
         pass
 
+    def status(self):
+        raise NotImplementedError()
+
     def store_all(self, fromdir, topic):
         raise NotImplementedError()
 

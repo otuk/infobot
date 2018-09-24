@@ -41,11 +41,18 @@ class Brains():
         """
         if args.addfrompath is not None:
             self.add_future_posts(args.addfrompath)
+        elif args.liststatus:
+            self.display_status()
         elif args.registerapp:
             self.register_app()
         else:
             if self.randomHelper.should_i_run():
                 self.post_to_social()
+
+    def display_status(self):
+        self.config.status()
+        self.storageAdmin.status()
+        self.socialPlugin.status()
 
     def post_to_social(self):
         """
@@ -106,6 +113,11 @@ class Brains():
         parser.add_argument("-r", "--registerapp",
                             help="one time app registration is required" +
                             " for some social plugins",
+                            action="store_true",
+                            default=False, required=False)
+        parser.add_argument("-l", "--liststatus",
+                            help="list current settings and status " +
+                            "for some social plugins",
                             action="store_true",
                             default=False, required=False)
         args = parser.parse_args()
