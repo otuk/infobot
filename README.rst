@@ -16,7 +16,8 @@ Infobot
 
 
 
-Infobot is an extensible social media posting bot.  Initial version will target Mastodon and will post information on coding.
+Infobot is an extensible social media posting bot.
+It grabs candidate posts from a repository at random times and posts to different social media networks.  It is also capable of managing new posts being added to the repository.
 
 
 * Free software: MIT license
