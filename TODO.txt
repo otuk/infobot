@@ -1,13 +1,15 @@
 TODO
 -----------------------
-- Make file extension configurable
+
 - Add a display configuration flag ( status() for all modules)
-- Implement do not show older than X days option for the posts
-- setup a live running alpha instance  on server with virtual env
 - update the infobot text /description for version 0.2.0
+- Implement do not show older than X days option for the posts
 - implement optional text size limit for the intake
+
+- Package for alpha & setup a live running alpha instance  on server with virtual env
 
 
 
 DONE
 -----------------------
+- Make file extension configurable

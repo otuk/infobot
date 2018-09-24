@@ -21,6 +21,7 @@ randomizer:
 FileAdminDetails:
         directory: ~/Nextcloud/Documents/rusty_robot/data/
         counterfile: ~/Nextcloud/Documents/rusty_robot/data/counter.yaml
+        indexformat: "{}_{}.txt" # eg rust_1000.txt
 
 # the social site configuration name needs
 # to match the socialclass + "Details"

@@ -14,6 +14,7 @@ class FileAdminConf():
             fileadmindetails[K.dataDirectoryKey])
         self.counterfile = Brains.expand_home(
             fileadmindetails[K.counterKey])
+        self.indexFileFormat = fileadmindetails[K.indexFileFormatKey]
 
 
 class FileAdmin(Admin):
@@ -27,12 +28,13 @@ class FileAdmin(Admin):
         self._details = FileAdminConf(fileadmindetails)
         self._directory = self._details.directory
         self._counterfile = self._details.counterfile
+        self._indexFileFormat = self._details.indexFileFormat
 
     def format_index(self, topic, num):
         """
         returns formatted  filename
         """
-        return topic + "_" + str(num) + ".txt"
+        return self._indexFileFormat.format(topic, str(num))
 
     def read_from(self, index):
         """

@@ -8,9 +8,14 @@ storageModule = "storage."
 # storage keys
 dataDirectoryKey = "directory"
 counterKey = "counterfile"
+indexFileFormatKey = "indexformat"
+
+# index related keys
 startKey = "start"
 lastKey = "last"
 previousKey = "previous"
+
+# post format keys
 footerKey = "footer"
 headerKey = "header"
 fakeKey = "fake"

@@ -6,11 +6,6 @@ from infobot.brains import Brains
 from infobot.social.template import SocialPlugin
 
 
-# Log in - either every time, or use persisted
-"""
-"""
-
-
 class MastodonPluginConf():
     def __init__(self, filedata):
         "Handles the configuation data for Mastodon plugin"
