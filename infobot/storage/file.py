@@ -112,21 +112,18 @@ class FileAdmin(Admin):
         K.fakeKey:
         {
             K.headerKey: """
---------#rust----------""",
+            #{}-{}""",
 
             K.footerKey: """
------------------------
-Please reply to report error {}:{}"""
+------
+Please reply to report error"""
 
         },
         K.mastodonKey:
         {
-            K.headerKey:  """
---------#rust----------""",
+            K.headerKey:  "#{}-{}\n",
 
-            K.footerKey: """
------------------------
-Please reply to report error {}:{}"""
+            K.footerKey: ""
         }
 
     }
