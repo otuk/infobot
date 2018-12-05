@@ -30,7 +30,7 @@ def test_content(response):
 
 
 def test_storage():
-    config = ConfigAdmin("./config.yaml")
+    config = ConfigAdmin("./config.yaml.rust.mast")
     fa = FileAdmin(config, config.storageadmindetails)
     assert(fa._directory == Brains.expand_home(
         "~/Nextcloud/Documents/rusty_robot/data/"))

@@ -9,6 +9,8 @@ storageModule = "storage."
 dataDirectoryKey = "directory"
 counterKey = "counterfile"
 indexFileFormatKey = "indexformat"
+pickleFileKey = "picklefile"
+downloadUrlKey = "downloadurl"
 
 # index related keys
 startKey = "start"

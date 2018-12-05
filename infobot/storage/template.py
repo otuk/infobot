@@ -8,7 +8,7 @@ class Admin():
     def status(self):
         raise NotImplementedError()
 
-    def store_all(self, fromdir, topic):
+    def store_all(self, topic, fromdir):
         raise NotImplementedError()
 
     def store(self, data, toIndex):
