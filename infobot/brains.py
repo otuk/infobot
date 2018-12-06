@@ -41,6 +41,8 @@ class Brains():
         """
         if args.addfrompath is not None:
             self.add_future_posts(args.addfrompath)
+        elif args.download:
+            self.download_future_posts()
         elif args.liststatus:
             self.display_status()
         elif args.registerapp:
@@ -69,8 +71,10 @@ class Brains():
         self.socialPlugin.logout()
 
     def add_future_posts(self, frompath):
-        self.storageAdmin.store_all(frompath,
-                                    self.config.topic.name)
+        self.storageAdmin.store_all(self.config.topic.name, frompath)
+
+    def download_future_posts(self):
+        self.storageAdmin.store_all(self.config.topic.name, None)
 
     def register_app(self):
         self.socialPlugin.register()
@@ -108,8 +112,13 @@ class Brains():
                             type=str, default="./config.yaml")
         parser.add_argument("-a", "--addfrompath",
                             help="move entries from a directory" +
-                            " to bot storage",
+                                 " to bot storage",
                             type=str, required=False)
+        parser.add_argument("-d", "--download",
+                            help="downloads data from a URL specified " +
+                                 " in config file",
+                            action="store_true",
+                            default=False, required=False)
         parser.add_argument("-r", "--registerapp",
                             help="one time app registration is required" +
                             " for some social plugins",

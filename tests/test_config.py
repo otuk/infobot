@@ -31,7 +31,7 @@ def test_content(response):
 
 
 def test_config():
-    config = ConfigAdmin("./config.yaml")
+    config = ConfigAdmin("./config.yaml.rust.mast")
     assert(config.topic.name == "rust")
     assert(config.dev.storageclass == "FileAdmin")
     assert(config.randomizer.ontimes == 24)

@@ -73,7 +73,7 @@ class FileAdmin(Admin):
         with open(self._counterfile, 'w') as f:
             yaml.safe_dump(data, f, default_flow_style=False)
 
-    def store_all(self, fromdir, topic):
+    def store_all(self, topic, fromdir):
         print(("Will move files with name containing {}\n"
                "from: {}\n"
                "into: {}")

@@ -7,10 +7,10 @@
 # in the topic section
 # 
 topic:
-        name: cpp#CoreGuidelines
+        name: rust
 
 randomizer:
-        start: 0
+        start: 1000
         ontimes: 24
         outoftimes: 24
         exclude: 999, 998
@@ -23,12 +23,6 @@ FileAdminDetails:
         counterfile: ~/Nextcloud/Documents/rusty_robot/data/counter.yaml
         indexformat: "{}_{}.txt" # eg rust_1000.txt
 
-CoreListDetails:
-        directory: ~/Nextcloud/Documents/cppcorebot/data/
-        counterfile: ~/Nextcloud/Documents/cppcorebot/data/counter.yaml
-        picklefile: ~/Nextcloud/Documents/cppcorebot/data/cppcoreguidelines.bin
-        downloadurl: https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines
-
 # the social site configuration name needs
 # to match the socialclass + "Details"
 # in this example topic.socialclass + "Details" => "FakeSocialDetails"
@@ -40,12 +34,10 @@ FakeSocialPluginDetails:
 
 MastodonPluginDetails:
         socialapp:  mastodon
-        clientappname: cppcoreapp
+        clientappname: infobotapp
         apiurl: https://mastodon.social
-#        clientsecretfilename: ~/Nextcloud/Documents/rusty_robot/data/infobotapp_client.secret
-#        usersecretfilename: ~/Nextcloud/Documents/rusty_robot/data/infobotapp_user.secret
-        clientsecretfilename: ~/Nextcloud/Documents/cppcorebot/data/cppcoreapp_client.secret
-        usersecretfilename: ~/Nextcloud/Documents/cppcorebot/data/cppcoreapp_user.secret
+        clientsecretfilename: ~/Nextcloud/Documents/rusty_robot/data/infobotapp_client.secret
+        usersecretfilename: ~/Nextcloud/Documents/rusty_robot/data/infobotapp_user.secret           
 
 
 #
@@ -55,14 +47,12 @@ MastodonPluginDetails:
 # Otherwise do not change them.
 #
 dev:
-#       storagemodule: file
-#       storageclass: FileAdmin
-        storagemodule: coreguidelines
-        storageclass: CoreList
+        storagemodule: file  
+        storageclass: FileAdmin  
         socialmodule: mastodon
         socialclass: MastodonPlugin
-#        socialmodule: fake
-#        socialclass: FakeSocialPlugin
+        # socialmodule: fake        
+        # socialclass: FakeSocialPlugin
 
 
 #########################################################################
