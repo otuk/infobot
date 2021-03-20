@@ -21,7 +21,7 @@ future==0.16.0
 http-ece==1.0.5
 idna==2.7
 imagesize==1.1.0
-Jinja2==2.10
+Jinja2==2.11.3
 jinja2-time==0.2.0
 lxml==4.2.5
 MarkupSafe==1.0
